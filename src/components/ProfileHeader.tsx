@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface ProfileHeaderProps {
   profile: {
@@ -10,50 +11,75 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
-  const today = new Date().toLocaleDateString("en-US", {
+  const today = new Date();
+  const dateStr = today.toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
-  return (
-    <header className="mb-8 paper-enter">
-      {/* Top rule */}
-      <div className="border-t-4 border-foreground" />
-      <div className="border-t border-foreground mt-0.5" />
+  const editionNum = Math.floor(
+    (today.getTime() - new Date("2024-01-01").getTime()) / (1000 * 60 * 60 * 24)
+  );
 
-      {/* Date & Edition line */}
-      <div className="flex items-center justify-between mt-3 mb-4">
-        <span className="font-mono-label text-muted-foreground">{today}</span>
-        <span className="font-mono-label text-muted-foreground">Vol. XXIV · No. 1</span>
+  return (
+    <header className="mb-6 paper-enter">
+      {/* Top double rule */}
+      <div className="border-t-[3px] border-foreground" />
+      <div className="border-t border-foreground mt-[2px]" />
+
+      {/* Ticker / info bar */}
+      <div className="flex items-center justify-between mt-2.5 mb-3">
+        <span className="font-mono-label text-muted-foreground">{dateStr}</span>
+        <ThemeToggle />
+        <span className="font-mono-label text-muted-foreground">No. {editionNum}</span>
       </div>
 
+      <div className="border-t rule mb-3" />
+
       {/* Masthead */}
-      <div className="text-center mb-4">
-        <h1 className="font-headline text-5xl sm:text-6xl font-black tracking-tight text-foreground leading-none">
+      <div className="text-center mb-1">
+        <div className="flex items-center justify-center gap-3 mb-2">
+          <span className="h-[2px] flex-1 bg-foreground/15" />
+          <span className="font-sans-label text-[9px] tracking-[0.25em] uppercase text-muted-foreground">
+            Est. 2024 · Digital Edition
+          </span>
+          <span className="h-[2px] flex-1 bg-foreground/15" />
+        </div>
+
+        <h1 className="font-headline text-5xl sm:text-[4rem] font-black tracking-tight text-foreground leading-[0.9] mb-2">
           {profile.name}
         </h1>
-        <div className="flex items-center justify-center gap-3 mt-3">
-          <span className="h-px flex-1 bg-foreground/20" />
-          <span className="font-sans-label text-xs tracking-[0.2em] uppercase text-muted-foreground">
+
+        <div className="flex items-center justify-center gap-4 mt-2 mb-1">
+          <span className="ornament text-muted-foreground/40">✦</span>
+          <span className="font-body text-xs italic text-muted-foreground tracking-wide">
             {profile.subtitle}
           </span>
-          <span className="h-px flex-1 bg-foreground/20" />
+          <span className="ornament text-muted-foreground/40">✦</span>
         </div>
       </div>
 
-      {/* Byline with avatar */}
-      <div className="border-t rule border-b rule py-3 flex items-center gap-3">
-        <Avatar className="h-9 w-9 rounded-none border border-border">
+      <div className="border-t-[2px] border-foreground mt-2" />
+      <div className="border-t border-foreground mt-[2px]" />
+
+      {/* Byline / lede */}
+      <div className="py-3 flex items-start gap-3 border-b rule">
+        <Avatar className="h-10 w-10 rounded-none border border-border flex-shrink-0 mt-0.5">
           <AvatarImage src={profile.avatarUrl} alt={profile.name} className="grayscale" />
           <AvatarFallback className="rounded-none text-xs font-semibold">
             {profile.name.split(" ").map((n) => n[0]).join("")}
           </AvatarFallback>
         </Avatar>
-        <p className="text-sm leading-relaxed text-foreground/80 font-body italic">
-          {profile.bio}
-        </p>
+        <div>
+          <span className="font-sans-label text-[10px] tracking-[0.15em] uppercase text-muted-foreground">
+            From the Editor
+          </span>
+          <p className="text-sm leading-relaxed text-foreground/80 font-body italic mt-0.5">
+            "{profile.bio}"
+          </p>
+        </div>
       </div>
     </header>
   );
