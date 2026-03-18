@@ -10,33 +10,51 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
+  const today = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
-    <header className="mb-10 flex flex-col items-center text-center glass-enter">
-      {/* Avatar with glow ring */}
-      <div className="relative mb-5">
-        <div className="absolute -inset-3 rounded-full bg-gradient-to-br from-primary/30 via-accent/20 to-primary/10 blur-xl" />
-        <Avatar className="relative h-22 w-22 ring-2 ring-[hsl(var(--glass-border))] shadow-lg shadow-primary/20">
-          <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-          <AvatarFallback className="text-lg font-semibold bg-secondary text-foreground">
+    <header className="mb-8 paper-enter">
+      {/* Top rule */}
+      <div className="border-t-4 border-foreground" />
+      <div className="border-t border-foreground mt-0.5" />
+
+      {/* Date & Edition line */}
+      <div className="flex items-center justify-between mt-3 mb-4">
+        <span className="font-mono-label text-muted-foreground">{today}</span>
+        <span className="font-mono-label text-muted-foreground">Vol. XXIV · No. 1</span>
+      </div>
+
+      {/* Masthead */}
+      <div className="text-center mb-4">
+        <h1 className="font-headline text-5xl sm:text-6xl font-black tracking-tight text-foreground leading-none">
+          {profile.name}
+        </h1>
+        <div className="flex items-center justify-center gap-3 mt-3">
+          <span className="h-px flex-1 bg-foreground/20" />
+          <span className="font-sans-label text-xs tracking-[0.2em] uppercase text-muted-foreground">
+            {profile.subtitle}
+          </span>
+          <span className="h-px flex-1 bg-foreground/20" />
+        </div>
+      </div>
+
+      {/* Byline with avatar */}
+      <div className="border-t rule border-b rule py-3 flex items-center gap-3">
+        <Avatar className="h-9 w-9 rounded-none border border-border">
+          <AvatarImage src={profile.avatarUrl} alt={profile.name} className="grayscale" />
+          <AvatarFallback className="rounded-none text-xs font-semibold">
             {profile.name.split(" ").map((n) => n[0]).join("")}
           </AvatarFallback>
         </Avatar>
+        <p className="text-sm leading-relaxed text-foreground/80 font-body italic">
+          {profile.bio}
+        </p>
       </div>
-
-      <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">
-        {profile.name}
-      </h1>
-
-      <p
-        className="mt-3 max-w-[380px] text-sm leading-relaxed text-muted-foreground"
-        style={{ textWrap: "balance" }}
-      >
-        {profile.bio}
-      </p>
-
-      <span className="font-mono-label mt-4 text-muted-foreground/70">
-        {profile.subtitle}
-      </span>
     </header>
   );
 }
