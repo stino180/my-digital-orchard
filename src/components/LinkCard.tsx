@@ -1,4 +1,4 @@
-import { ExternalLink, Mail, Twitter, Github } from "lucide-react";
+import { ExternalLink, Mail, Twitter, Github, ArrowUpRight } from "lucide-react";
 import { type LinkItem } from "@/data/links";
 import { cn } from "@/lib/utils";
 
@@ -11,9 +11,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 interface LinkCardProps {
   link: LinkItem;
   index: number;
+  featured?: boolean;
 }
 
-export function LinkCard({ link, index }: LinkCardProps) {
+export function LinkCard({ link, index, featured }: LinkCardProps) {
   const IconComponent = link.icon ? iconMap[link.icon] : null;
 
   return (
@@ -21,72 +22,89 @@ export function LinkCard({ link, index }: LinkCardProps) {
       href={link.url}
       target={link.url.startsWith("mailto:") ? undefined : "_blank"}
       rel="noopener noreferrer"
-      className="group block glass-enter"
-      style={{ animationDelay: `${index * 100 + 300}ms` }}
+      className="group block paper-enter"
+      style={{ animationDelay: `${index * 100 + 200}ms` }}
     >
-      <div
+      <article
         className={cn(
-          "glass glass-highlight rounded-2xl overflow-hidden transition-all duration-300",
-          "hover:-translate-y-1 hover:glow-purple-hover",
-          "active:scale-[0.98]",
-          "glow-purple"
+          "transition-colors duration-200",
+          "hover:bg-secondary/50",
+          featured ? "pb-5" : "py-4 border-b rule"
         )}
       >
-        {/* Image area */}
-        {link.imageUrl && (
-          <div className="relative h-40 overflow-hidden">
+        {/* Featured card with image */}
+        {featured && link.imageUrl && (
+          <div className="relative mb-3 overflow-hidden border border-border">
             <img
               src={link.imageUrl}
               alt={link.title}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-48 sm:h-56 object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-500"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[hsl(230_25%_10%/0.7)] via-transparent to-transparent" />
-          </div>
-        )}
-
-        {/* Icon area for non-image cards */}
-        {!link.imageUrl && IconComponent && (
-          <div className="flex items-center justify-center py-8 bg-gradient-to-br from-primary/10 via-accent/5 to-transparent">
-            <div className="rounded-2xl p-4 glass-strong">
-              <IconComponent className="h-7 w-7 text-foreground/80 transition-colors group-hover:text-primary" />
+            <div className="absolute top-2 left-2">
+              {link.status && (
+                <span className={cn(
+                  "font-mono-label px-2 py-0.5",
+                  link.status === "live"
+                    ? "bg-[hsl(var(--status-live))] text-white"
+                    : "bg-[hsl(var(--status-wip))] text-white"
+                )}>
+                  {link.status}
+                </span>
+              )}
             </div>
           </div>
         )}
 
-        {/* Content */}
-        <div className="p-4">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <h2 className="font-display truncate text-sm font-semibold text-foreground">
-                  {link.title}
-                </h2>
-                {link.status && (
-                  <span className="flex shrink-0 items-center gap-1.5">
-                    <span
-                      className={cn(
-                        "inline-block h-1.5 w-1.5 rounded-full",
-                        link.status === "live"
-                          ? "bg-[hsl(var(--status-live))] shadow-[0_0_8px_hsl(var(--status-live)/0.5)]"
-                          : "bg-[hsl(var(--status-wip))] shadow-[0_0_8px_hsl(var(--status-wip)/0.5)]"
-                      )}
-                    />
-                    <span className="font-mono-label text-muted-foreground">
-                      {link.status}
-                    </span>
-                  </span>
+        <div className="flex items-start gap-3">
+          {/* Column number / icon */}
+          {!featured && (
+            <div className="flex-shrink-0 w-8 pt-0.5">
+              {IconComponent ? (
+                <IconComponent className="h-4 w-4 text-muted-foreground group-hover:text-accent transition-colors" />
+              ) : (
+                <span className="font-headline text-2xl font-bold text-muted-foreground/40 leading-none">
+                  {index + 1}
+                </span>
+              )}
+            </div>
+          )}
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between gap-2">
+              <h2
+                className={cn(
+                  "font-headline font-bold text-foreground leading-tight group-hover:text-accent transition-colors",
+                  featured ? "text-2xl sm:text-3xl" : "text-base"
                 )}
-              </div>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                {link.description}
-              </p>
+              >
+                {link.title}
+              </h2>
+              <ArrowUpRight className="h-4 w-4 mt-1 shrink-0 text-muted-foreground/30 group-hover:text-accent transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </div>
 
-            <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground/40 transition-all group-hover:text-foreground group-hover:opacity-100 opacity-0" />
+            <p className={cn(
+              "mt-1 text-muted-foreground leading-relaxed font-body",
+              featured ? "text-sm" : "text-xs"
+            )}>
+              {link.description}
+            </p>
+
+            {/* Status for non-featured */}
+            {!featured && link.status && (
+              <div className="mt-1.5 flex items-center gap-1.5">
+                <span
+                  className={cn(
+                    "inline-block h-1.5 w-1.5 rounded-full",
+                    link.status === "live" ? "bg-[hsl(var(--status-live))]" : "bg-[hsl(var(--status-wip))]"
+                  )}
+                />
+                <span className="font-mono-label text-muted-foreground">{link.status}</span>
+              </div>
+            )}
           </div>
         </div>
-      </div>
+      </article>
     </a>
   );
 }
