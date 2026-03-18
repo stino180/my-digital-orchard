@@ -14,21 +14,24 @@ const Index = () => {
       : links.filter((l) => l.category === activeFilter);
 
   return (
-    <div className="min-h-screen bg-background crt-scanlines">
-      <main className="mx-auto max-w-[640px] px-4 py-8 sm:py-16">
+    <div className="min-h-screen relative noise">
+      {/* Animated mesh gradient background */}
+      <div className="mesh-gradient" />
+
+      <main className="relative z-10 mx-auto max-w-[640px] px-4 py-12 sm:py-20">
         <ProfileHeader profile={profileData} />
 
         <FilterPills active={activeFilter} onChange={setActiveFilter} />
 
-        <div className="mt-4 flex flex-col gap-3">
+        <div className="mt-6 flex flex-col gap-4">
           {filteredLinks.map((link, i) => (
             <LinkCard key={link.id} link={link} index={i} />
           ))}
 
           {filteredLinks.length === 0 && (
-            <div className="py-12 text-center text-xs text-muted-foreground">
-              <span className="text-primary">$</span> No entries found. <span className="cursor-blink text-primary">█</span>
-            </div>
+            <p className="py-12 text-center text-sm text-muted-foreground">
+              Nothing here yet.
+            </p>
           )}
         </div>
 
