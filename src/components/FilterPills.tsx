@@ -8,17 +8,16 @@ interface FilterPillsProps {
 
 export function FilterPills({ active, onChange }: FilterPillsProps) {
   return (
-    <div className="flex items-center gap-1 text-xs mb-1">
-      <span className="text-muted-foreground mr-2">$ ls --filter=</span>
+    <div className="flex items-center justify-center gap-2 glass-enter" style={{ animationDelay: '150ms' }}>
       {categories.map((cat) => (
         <button
           key={cat.value}
           onClick={() => onChange(cat.value as "all" | LinkCategory)}
           className={cn(
-            "px-3 py-1 border transition-all duration-200 font-mono text-xs tracking-wider uppercase",
+            "font-mono-label rounded-full px-4 py-1.5 transition-all duration-300",
             active === cat.value
-              ? "border-primary text-primary bg-primary/10 text-glow border-glow"
-              : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+              ? "glass-strong text-foreground shadow-lg shadow-primary/10 glow-purple"
+              : "text-muted-foreground hover:text-foreground hover:bg-[hsl(var(--glass-highlight))]"
           )}
         >
           {cat.label}
