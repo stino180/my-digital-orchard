@@ -2,9 +2,9 @@ import { Github, Twitter, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const quickLinks = [
-  { icon: Twitter, href: "https://x.com", label: "Twitter" },
+  { icon: Twitter, href: "https://x.com/stino180", label: "Twitter" },
   { icon: Github, href: "https://github.com", label: "GitHub" },
-  { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+  { icon: Mail, href: "mailto:jstrongmgmt@gmail.com", label: "Email" },
 ];
 
 export function UtilityRow() {
