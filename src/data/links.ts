@@ -42,7 +42,7 @@ export const links: LinkItem[] = [
     id: "3",
     title: "Stacq",
     description: "Stack your tools, simplify your process. A developer-first productivity suite.",
-    url: "https://stacq.io",
+    url: "https://stacq.xyz",
     category: "projects",
     status: "live",
   },
