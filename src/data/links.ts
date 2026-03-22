@@ -50,7 +50,7 @@ export const links: LinkItem[] = [
     id: "4",
     title: "DuoChart",
     description: "Side-by-side charting and data visualization for traders and analysts.",
-    url: "https://duochart.com",
+    url: "https://duochart.pages.dev",
     category: "projects",
     status: "live",
   },
