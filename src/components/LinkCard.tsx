@@ -1,4 +1,4 @@
-import { ExternalLink, Mail, Twitter, Github, ArrowUpRight, Instagram, Play, Film } from "lucide-react";
+import { ExternalLink, Mail, Twitter, Github, ArrowUpRight, Instagram, Play, Film, Phone } from "lucide-react";
 import { type LinkItem } from "@/data/links";
 import { cn } from "@/lib/utils";
 
