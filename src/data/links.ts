@@ -33,7 +33,7 @@ export const links: LinkItem[] = [
     id: "2",
     title: "Zmove",
     description: "Rethinking movement and logistics through intuitive digital experiences.",
-    url: "https://zmove.io",
+    url: "https://zmove.xyz",
     category: "projects",
     status: "live",
     imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=640&h=360&fit=crop&q=80",
