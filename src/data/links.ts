@@ -24,7 +24,7 @@ export const links: LinkItem[] = [
     id: "1",
     title: "Mozze",
     description: "A platform crafted to streamline workflows and elevate creative output.",
-    url: "https://mozze.io",
+    url: "https://mozze.xyz",
     category: "projects",
     status: "live",
     imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=640&h=360&fit=crop&q=80",
