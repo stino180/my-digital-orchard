@@ -101,12 +101,21 @@ export const links: LinkItem[] = [
   },
   {
     id: "11",
-    title: "Get in Touch",
-    description: "Open for collaborations, freelance, or just to say hi.",
+    title: "Email Me",
+    description: "jstrongmgmt@gmail.com — Open for collaborations, freelance, or just to say hi.",
     url: "mailto:jstrongmgmt@gmail.com",
     category: "contact",
     status: "live",
     icon: "mail",
+  },
+  {
+    id: "12",
+    title: "Call / Text",
+    description: "(773) 234-7823 — Reach me directly.",
+    url: "tel:+17732347823",
+    category: "contact",
+    status: "live",
+    icon: "phone",
   },
 ];
 

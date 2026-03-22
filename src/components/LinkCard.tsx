@@ -9,6 +9,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   instagram: Instagram,
   play: Play,
   film: Film,
+  phone: Phone,
 };
 
 interface LinkCardProps {
