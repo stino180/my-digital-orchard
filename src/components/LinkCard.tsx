@@ -1,4 +1,4 @@
-import { ExternalLink, Mail, Twitter, Github, ArrowUpRight } from "lucide-react";
+import { ExternalLink, Mail, Twitter, Github, ArrowUpRight, Instagram, Play, Film } from "lucide-react";
 import { type LinkItem } from "@/data/links";
 import { cn } from "@/lib/utils";
 
@@ -6,6 +6,9 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   twitter: Twitter,
   mail: Mail,
   github: Github,
+  instagram: Instagram,
+  play: Play,
+  film: Film,
 };
 
 interface LinkCardProps {
