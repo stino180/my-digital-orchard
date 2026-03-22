@@ -75,7 +75,7 @@ export const links: LinkItem[] = [
     id: "7",
     title: "Videos & Reels",
     description: "Music videos, promo reels, brand spots, and behind-the-scenes content.",
-    url: "https://youtube.com/@stino180",
+    url: "https://youtube.com/@stino180v",
     category: "videos",
     status: "live",
     icon: "play",
