@@ -1,4 +1,4 @@
-export type LinkCategory = "projects" | "socials" | "contact";
+export type LinkCategory = "projects" | "socials" | "contact" | "videos";
 export type LinkStatus = "live" | "wip";
 
 export interface LinkItem {
@@ -16,7 +16,7 @@ export const profileData = {
   name: "Justin Strong",
   bio: "Building products at the intersection of design, code, and culture.",
   subtitle: "Selected Works & Coordinates",
-  avatarUrl: "https://api.dicebear.com/9.x/notionists/svg?seed=Justin&backgroundColor=c0aede",
+  avatarUrl: "", // will use imported image
 };
 
 export const links: LinkItem[] = [
@@ -56,22 +56,15 @@ export const links: LinkItem[] = [
   },
   {
     id: "5",
-    title: "Bitcoin Clock",
-    description: "A real-time Bitcoin block height clock. Every block is a tick.",
-    url: "https://bitcoinclock.com",
+    title: "Baseline Studio",
+    description: "Full-service creative studio for websites, apps, logos, and graphic design. Hire me here.",
+    url: "https://baselinestudio.io",
     category: "projects",
     status: "live",
+    imageUrl: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=640&h=360&fit=crop&q=80",
   },
   {
     id: "6",
-    title: "Trait Forge",
-    description: "On-chain generative NFT game with evolving traits and strategic gameplay.",
-    url: "https://traitforge.info",
-    category: "projects",
-    status: "live",
-  },
-  {
-    id: "7",
     title: "Stino180 Music",
     description: "Official music site for Stino180. Beats, releases, and everything sonic.",
     url: "https://stino180.com",
@@ -79,7 +72,25 @@ export const links: LinkItem[] = [
     status: "live",
   },
   {
+    id: "7",
+    title: "Music Videos",
+    description: "Official music videos, visuals, and creative direction on screen.",
+    url: "https://youtube.com/@stino180",
+    category: "videos",
+    status: "live",
+    icon: "play",
+  },
+  {
     id: "8",
+    title: "Promo Reels",
+    description: "Short-form promo videos, brand spots, and behind-the-scenes content.",
+    url: "https://youtube.com/@stino180",
+    category: "videos",
+    status: "live",
+    icon: "film",
+  },
+  {
+    id: "9",
     title: "Twitter / X",
     description: "Thoughts on building, music, and the internet.",
     url: "https://x.com/stino180",
@@ -88,7 +99,16 @@ export const links: LinkItem[] = [
     icon: "twitter",
   },
   {
-    id: "9",
+    id: "10",
+    title: "Instagram",
+    description: "Behind the scenes, design work, and daily life.",
+    url: "https://instagram.com/stino180",
+    category: "socials",
+    status: "live",
+    icon: "instagram",
+  },
+  {
+    id: "11",
     title: "Get in Touch",
     description: "Open for collaborations, freelance, or just to say hi.",
     url: "mailto:jstrongmgmt@gmail.com",
@@ -101,6 +121,7 @@ export const links: LinkItem[] = [
 export const categories = [
   { value: "all", label: "All" },
   { value: "projects", label: "Projects" },
+  { value: "videos", label: "Videos" },
   { value: "socials", label: "Socials" },
   { value: "contact", label: "Contact" },
 ] as const;

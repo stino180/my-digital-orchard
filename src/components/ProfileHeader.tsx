@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import avatarImg from "@/assets/avatar.png";
 
 interface ProfileHeaderProps {
   profile: {
@@ -67,7 +68,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
       {/* Byline / lede */}
       <div className="py-3 flex items-start gap-3 border-b rule">
         <Avatar className="h-10 w-10 rounded-none border border-border flex-shrink-0 mt-0.5">
-          <AvatarImage src={profile.avatarUrl} alt={profile.name} className="grayscale" />
+          <AvatarImage src={avatarImg} alt={profile.name} className="grayscale object-cover" />
           <AvatarFallback className="rounded-none text-xs font-semibold">
             {profile.name.split(" ").map((n) => n[0]).join("")}
           </AvatarFallback>
