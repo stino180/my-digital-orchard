@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ProfileHeader } from "@/components/ProfileHeader";
+import { DemoReel } from "@/components/DemoReel";
 import { FilterPills } from "@/components/FilterPills";
 import { LinkCard } from "@/components/LinkCard";
 import { UtilityRow } from "@/components/UtilityRow";
@@ -23,6 +24,8 @@ const Index = () => {
     <div className="min-h-screen bg-background paper-texture">
       <main className="mx-auto max-w-[640px] px-4 py-8 sm:py-14">
         <ProfileHeader profile={profileData} />
+
+        <DemoReel />
 
         <FilterPills active={activeFilter} onChange={setActiveFilter} />
 

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import demoReel from "/demoreel.mp4";
+
+const demoReel = "/demoreel.mp4";
 
 export function DemoReel() {
   const videoRef = useRef<HTMLVideoElement>(null);
