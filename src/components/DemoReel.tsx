@@ -62,8 +62,7 @@ export function DemoReel() {
             muted
             loop
             playsInline
-            // @ts-expect-error - non-standard but needed for iOS
-            webkit-playsinline="true"
+            {...({ "webkit-playsinline": "true" } as Record<string, string>)}
             preload="auto"
             controls={hovered && !needsTap}
             className="w-full h-auto block grayscale-[0.15] contrast-[1.05]"
