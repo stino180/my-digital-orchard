@@ -23,7 +23,7 @@ export const links: LinkItem[] = [
   {
     id: "1",
     title: "Mozze",
-    description: "A platform crafted to streamline workflows and elevate creative output.",
+    description: "Music streaming platform where artists charge per stream for songs and videos — and sell music direct to fans.",
     url: "https://mozze.xyz",
     category: "projects",
     status: "live",
@@ -32,7 +32,7 @@ export const links: LinkItem[] = [
   {
     id: "2",
     title: "Zmove",
-    description: "Rethinking movement and logistics through intuitive digital experiences.",
+    description: "A sports clip app for sharing highlights and entertainment moments with fellow fans.",
     url: "https://zmove.xyz",
     category: "projects",
     status: "live",
@@ -41,7 +41,7 @@ export const links: LinkItem[] = [
   {
     id: "3",
     title: "Stacq",
-    description: "Stack your tools, simplify your process. A developer-first productivity suite.",
+    description: "Self-custody automated wealth building — schedule recurring buys into crypto, stocks, and equities, simply and safely.",
     url: "https://stacq.xyz",
     category: "projects",
     status: "live",
