@@ -31,11 +31,20 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
       <div className="border-t-[3px] border-foreground" />
       <div className="border-t border-foreground mt-[2px]" />
 
-      {/* Ticker / info bar */}
-      <div className="flex items-center justify-between mt-2.5 mb-3">
-        <span className="font-mono-label text-muted-foreground">{dateStr}</span>
-        <ThemeToggle />
-        <span className="font-mono-label text-muted-foreground">No. {editionNum}</span>
+      {/* Ticker / info bar with integrated artist mark */}
+      <div className="flex items-center justify-between mt-2.5 mb-3 gap-3">
+        <span className="font-mono-label text-muted-foreground flex-1">{dateStr}</span>
+        <div className="px-3 border-x border-foreground/20 flex items-center justify-center">
+          <img
+            src={stinoLogo}
+            alt="Stino — artist mark"
+            className="h-7 sm:h-8 w-auto object-contain mix-blend-multiply dark:mix-blend-screen dark:invert-[0.05]"
+          />
+        </div>
+        <div className="flex-1 flex items-center justify-end gap-2">
+          <span className="font-mono-label text-muted-foreground">No. {editionNum}</span>
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className="border-t rule mb-3" />
@@ -61,19 +70,8 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
           </span>
           <span className="ornament text-muted-foreground/40">✦</span>
         </div>
-
-        {/* Artist mark */}
-        <div className="mt-3 flex flex-col items-center">
-          <img
-            src={stinoLogo}
-            alt="Stino — artist mark"
-            className="h-20 sm:h-24 w-auto object-contain mix-blend-multiply dark:mix-blend-screen dark:invert-[0.05]"
-          />
-          <span className="font-sans-label text-[9px] tracking-[0.3em] uppercase text-muted-foreground mt-1">
-            Recording As · Stino
-          </span>
-        </div>
       </div>
+
 
       <div className="border-t-[2px] border-foreground mt-2" />
       <div className="border-t border-foreground mt-[2px]" />
