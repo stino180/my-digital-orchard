@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import avatarImg from "@/assets/avatar.png";
+import stinoLogo from "@/assets/stino-logo.png";
 
 interface ProfileHeaderProps {
   profile: {
@@ -55,10 +56,22 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
 
         <div className="flex items-center justify-center gap-4 mt-2 mb-1">
           <span className="ornament text-muted-foreground/40">✦</span>
-          <span className="font-body text-xs italic text-muted-foreground tracking-wide">
+          <span className="font-sans-label text-[9px] tracking-[0.25em] uppercase text-muted-foreground">
             {profile.subtitle}
           </span>
           <span className="ornament text-muted-foreground/40">✦</span>
+        </div>
+
+        {/* Artist mark */}
+        <div className="mt-3 flex flex-col items-center">
+          <img
+            src={stinoLogo}
+            alt="Stino — artist mark"
+            className="h-20 sm:h-24 w-auto object-contain mix-blend-multiply dark:mix-blend-screen dark:invert-[0.05]"
+          />
+          <span className="font-sans-label text-[9px] tracking-[0.3em] uppercase text-muted-foreground mt-1">
+            Recording As · Stino
+          </span>
         </div>
       </div>
 
