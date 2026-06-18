@@ -56,7 +56,7 @@ export const links: LinkItem[] = [
   },
   {
     id: "5",
-    title: "Baseline Studio",
+    title: "Inpoint Studio",
     description: "Full-service creative studio for websites, apps, logos, and graphic design. Hire me here.",
     url: "https://baselinestudio.lovable.app",
     category: "projects",
