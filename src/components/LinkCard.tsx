@@ -1,4 +1,5 @@
-import { ExternalLink, Mail, Twitter, Github, ArrowUpRight, Instagram, Play, Film, Phone } from "lucide-react";
+import { Link as RouterLink } from "react-router-dom";
+import { Mail, Twitter, Github, ArrowUpRight, Instagram, Play, Film, Phone } from "lucide-react";
 import { type LinkItem } from "@/data/links";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +13,42 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   phone: Phone,
 };
 
+interface CardShellProps {
+  url: string;
+  className: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}
+
+/**
+ * Routes in-app for internal paths ("/videos") and out for everything else.
+ * mailto: and tel: stay in the same tab — a new tab for those just leaves a
+ * blank window behind once the handler opens.
+ */
+function CardShell({ url, className, style, children }: CardShellProps) {
+  if (url.startsWith("/")) {
+    return (
+      <RouterLink to={url} className={className} style={style}>
+        {children}
+      </RouterLink>
+    );
+  }
+
+  const opensHandler = url.startsWith("mailto:") || url.startsWith("tel:");
+
+  return (
+    <a
+      href={url}
+      target={opensHandler ? undefined : "_blank"}
+      rel="noopener noreferrer"
+      className={className}
+      style={style}
+    >
+      {children}
+    </a>
+  );
+}
+
 interface LinkCardProps {
   link: LinkItem;
   index: number;
@@ -23,10 +60,8 @@ export function LinkCard({ link, index, featured }: LinkCardProps) {
 
   if (featured) {
     return (
-      <a
-        href={link.url}
-        target={link.url.startsWith("mailto:") ? undefined : "_blank"}
-        rel="noopener noreferrer"
+      <CardShell
+        url={link.url}
         className="group block paper-enter"
         style={{ animationDelay: `${index * 100 + 200}ms` }}
       >
@@ -69,15 +104,13 @@ export function LinkCard({ link, index, featured }: LinkCardProps) {
             Read more <ArrowUpRight className="h-3 w-3" />
           </span>
         </article>
-      </a>
+      </CardShell>
     );
   }
 
   return (
-    <a
-      href={link.url}
-      target={link.url.startsWith("mailto:") ? undefined : "_blank"}
-      rel="noopener noreferrer"
+    <CardShell
+      url={link.url}
       className="group block paper-enter"
       style={{ animationDelay: `${index * 100 + 200}ms` }}
     >
@@ -136,6 +169,6 @@ export function LinkCard({ link, index, featured }: LinkCardProps) {
           </div>
         )}
       </article>
-    </a>
+    </CardShell>
   );
 }
