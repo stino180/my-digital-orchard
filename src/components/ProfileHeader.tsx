@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import avatarImg from "@/assets/avatar.png";
+import avatarImg from "@/assets/avatar.webp";
 import stinoLogo from "@/assets/stino-logo.png";
 
 interface ProfileHeaderProps {

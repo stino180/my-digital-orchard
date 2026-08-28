@@ -1,3 +1,5 @@
+import { inHouseProjects } from "./projects";
+
 export type LinkCategory = "projects" | "socials" | "contact" | "videos";
 export type LinkStatus = "live" | "wip";
 
@@ -19,52 +21,46 @@ export const profileData = {
   avatarUrl: "", // will use imported image
 };
 
-export const links: LinkItem[] = [
+/**
+ * Artwork is per-site, so it lives here rather than in the shared catalogue.
+ * A project without an entry simply renders without a thumbnail.
+ */
+const projectArtwork: Record<string, string> = {
+  mozze:
+    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=640&h=360&fit=crop&q=80",
+  zmove:
+    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=640&h=360&fit=crop&q=80",
+};
+
+/**
+ * Built from the shared catalogue, filtered to in-house work: client projects
+ * belong in the Inpoint portfolio, not on a personal site.
+ */
+const projectLinks: LinkItem[] = inHouseProjects.map((project) => ({
+  id: `project-${project.slug}`,
+  title: project.name,
+  description: project.blurb,
+  url: project.url,
+  category: "projects",
+  status: project.status,
+  imageUrl: projectArtwork[project.slug],
+}));
+
+/** The other places I live on the internet — spokes, not products. */
+const propertyLinks: LinkItem[] = [
   {
-    id: "1",
-    title: "Mozze",
-    description: "Music streaming platform where artists charge per stream for songs and videos — and sell music direct to fans.",
-    url: "https://mozze.xyz",
-    category: "projects",
-    status: "live",
-    imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=640&h=360&fit=crop&q=80",
-  },
-  {
-    id: "2",
-    title: "Zmove",
-    description: "A sports clip app for sharing highlights and entertainment moments with fellow fans.",
-    url: "https://zmove.xyz",
-    category: "projects",
-    status: "live",
-    imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=640&h=360&fit=crop&q=80",
-  },
-  {
-    id: "3",
-    title: "Stacq",
-    description: "Self-custody automated wealth building — schedule recurring buys into crypto, stocks, and equities, simply and safely.",
-    url: "https://stacq.xyz",
-    category: "projects",
-    status: "live",
-  },
-  {
-    id: "4",
-    title: "DuoChart",
-    description: "Side-by-side charting and data visualization for traders and analysts.",
-    url: "https://duochart.pages.dev",
-    category: "projects",
-    status: "live",
-  },
-  {
-    id: "5",
+    id: "inpoint",
     title: "Inpoint Studio",
-    description: "Full-service creative studio for websites, apps, logos, and graphic design. Hire me here.",
+    description:
+      "Full-service creative studio for websites, apps, logos, and graphic design. Hire me here.",
     url: "https://inpointstudio.lovable.app",
     category: "projects",
     status: "live",
-    imageUrl: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=640&h=360&fit=crop&q=80",
+    imageUrl:
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=640&h=360&fit=crop&q=80",
   },
   {
-    id: "6",
+    id: "stino180",
     title: "Stino180 Music",
     description: "Official music site for Stino180. Beats, releases, and everything sonic.",
     url: "https://stino180.com",
@@ -72,7 +68,7 @@ export const links: LinkItem[] = [
     status: "live",
   },
   {
-    id: "7",
+    id: "videos",
     title: "Videos & Reels",
     description: "Short films, music videos, teasers, and reels — the full screen section.",
     url: "/videos",
@@ -81,8 +77,11 @@ export const links: LinkItem[] = [
     icon: "play",
     imageUrl: "https://img.youtube.com/vi/sEADhI8zxY8/hqdefault.jpg",
   },
+];
+
+const contactLinks: LinkItem[] = [
   {
-    id: "9",
+    id: "twitter",
     title: "Twitter / X",
     description: "Thoughts on building, music, and the internet.",
     url: "https://x.com/stino180",
@@ -91,7 +90,7 @@ export const links: LinkItem[] = [
     icon: "twitter",
   },
   {
-    id: "10",
+    id: "instagram",
     title: "Instagram",
     description: "Behind the scenes, design work, and daily life.",
     url: "https://instagram.com/stino180",
@@ -100,16 +99,17 @@ export const links: LinkItem[] = [
     icon: "instagram",
   },
   {
-    id: "11",
+    id: "email",
     title: "Email Me",
-    description: "jstrongmgmt@gmail.com — Open for collaborations, freelance, or just to say hi.",
+    description:
+      "jstrongmgmt@gmail.com — Open for collaborations, freelance, or just to say hi.",
     url: "mailto:jstrongmgmt@gmail.com",
     category: "contact",
     status: "live",
     icon: "mail",
   },
   {
-    id: "12",
+    id: "phone",
     title: "Call / Text",
     description: "(773) 234-7823 — Reach me directly.",
     url: "tel:+17732347823",
@@ -117,6 +117,12 @@ export const links: LinkItem[] = [
     status: "live",
     icon: "phone",
   },
+];
+
+export const links: LinkItem[] = [
+  ...projectLinks,
+  ...propertyLinks,
+  ...contactLinks,
 ];
 
 export const categories = [
