@@ -71,7 +71,7 @@ const Videos = () => {
             <div className="flex items-center justify-center gap-4 mt-2 mb-1">
               <span className="ornament text-muted-foreground/40">✦</span>
               <span className="font-sans-label text-[9px] tracking-[0.25em] uppercase text-muted-foreground">
-                Short Films · Music Videos · Reels
+                Teasers · Short Films · Music Videos
               </span>
               <span className="ornament text-muted-foreground/40">✦</span>
             </div>

@@ -11,7 +11,7 @@ export interface VideoItem {
 }
 
 /**
- * Personal and music work only — music videos, short films, teasers, reels.
+ * Personal and music work only — teasers, music videos, short films, reels.
  *
  * Commercial video (brand spots, product film, client work) belongs in the
  * Inpoint Studio portfolio instead, under its Video & Motion service. Keeping
@@ -25,22 +25,22 @@ export const videos: VideoItem[] = [
   {
     youtubeId: "sEADhI8zxY8",
     title: "3am 2",
-    description: "Short film built around the track. Written, shot, and cut in-house.",
-    kind: "short-film",
+    description: "Teaser for \"3am 2.\"",
+    kind: "teaser",
     published: "2025-10-17",
   },
   {
     youtubeId: "ytsPPMQCoP8",
     title: "3am 2 — Vertical Cut",
-    description: "The same short film recut for vertical, for phones and social.",
-    kind: "short-film",
+    description: "The \"3am 2\" teaser recut for vertical, for phones and social.",
+    kind: "teaser",
     published: "2025-10-17",
   },
   {
     youtubeId: "hjwG_OCSG54",
     title: "Puppet Master",
-    description: "Music video for \"Puppet Master.\"",
-    kind: "music-video",
+    description: "Teaser for \"Puppet Master.\"",
+    kind: "teaser",
     published: "2025-10-14",
   },
   {
@@ -74,8 +74,8 @@ export const videos: VideoItem[] = [
   {
     youtubeId: "4Boq30xhPjQ",
     title: "4our",
-    description: "Music video for \"4our.\"",
-    kind: "music-video",
+    description: "Teaser for \"4our.\"",
+    kind: "teaser",
     published: "2025-01-21",
   },
   {
@@ -123,19 +123,27 @@ export const videos: VideoItem[] = [
   {
     youtubeId: "TnA537dn464",
     title: "The Path Least Traveled",
-    description: "A reel from the road.",
-    kind: "reel",
+    description: "Teaser for \"Icarus.\"",
+    kind: "teaser",
     published: "2024-08-17",
   },
 ];
 
-export const videoKinds = [
+const allKinds = [
   { value: "all", label: "All" },
+  { value: "teaser", label: "Teasers" },
   { value: "short-film", label: "Short Films" },
   { value: "music-video", label: "Music Videos" },
-  { value: "teaser", label: "Teasers" },
   { value: "reel", label: "Reels" },
 ] as const;
+
+/**
+ * Only offer a filter that has something behind it — an empty category with a
+ * visible filter is worse than no filter at all.
+ */
+export const videoKinds = allKinds.filter(
+  (k) => k.value === "all" || videos.some((v) => v.kind === k.value)
+);
 
 export const kindLabel: Record<VideoKind, string> = {
   "short-film": "Short Film",
