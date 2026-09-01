@@ -17,7 +17,7 @@ export interface LinkItem {
 export const profileData = {
   name: "Justin Strong",
   bio: "Building products at the intersection of design, code, and culture.",
-  subtitle: "Selected Works & Coordinates",
+  subtitle: "Creative Technologist Portfolio · Selected Works & Coordinates",
   avatarUrl: "", // will use imported image
 };
 
