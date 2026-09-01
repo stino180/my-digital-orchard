@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { VideoCard } from "@/components/VideoCard";
@@ -194,6 +195,7 @@ const Videos = () => {
 
       <VideoLightbox video={playing} onClose={() => setPlaying(null)} />
     </div>
+    </>
   );
 };
 

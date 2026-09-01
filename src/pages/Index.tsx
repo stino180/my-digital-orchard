@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { ProfileHeader } from "@/components/ProfileHeader";
 import { DemoReel } from "@/components/DemoReel";
 import { FilterPills } from "@/components/FilterPills";
@@ -21,6 +22,17 @@ const Index = () => {
   const restLinks = filteredLinks.filter((l) => l !== featuredLink);
 
   return (
+    <>
+      <Helmet>
+        <title>Justin Strong — Selected Works &amp; Coordinates</title>
+        <meta
+          name="description"
+          content="Justin Strong builds products at the intersection of design, code, and culture — Mozze, zMove, Stacq, DuoChart, films, and contact links."
+        />
+        <link rel="canonical" href="https://justinstrong.me/" />
+        <meta property="og:title" content="Justin Strong — Selected Works &amp; Coordinates" />
+        <meta property="og:url" content="https://justinstrong.me/" />
+      </Helmet>
     <div className="min-h-screen bg-background paper-texture">
       <main className="mx-auto max-w-[640px] px-4 py-8 sm:py-14">
         <ProfileHeader profile={profileData} />
@@ -60,6 +72,7 @@ const Index = () => {
         <UtilityRow />
       </main>
     </div>
+    </>
   );
 };
 
