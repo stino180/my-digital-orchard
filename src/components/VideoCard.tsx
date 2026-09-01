@@ -22,7 +22,7 @@ export function VideoCard({ video, index, onPlay }: VideoCardProps) {
         <div className="relative overflow-hidden border border-border bg-foreground/5">
           <img
             src={thumbnailFor(video.youtubeId)}
-            alt=""
+            alt={`${video.title} — video thumbnail`}
             loading="lazy"
             /* hqdefault is 4:3 with letterbox bars; cropping to 16:9 removes them. */
             className="w-full aspect-video object-cover scale-[1.35] grayscale-[0.45] group-hover:grayscale-0 transition-all duration-700"
