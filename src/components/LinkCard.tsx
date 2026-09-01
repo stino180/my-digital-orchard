@@ -162,7 +162,7 @@ export function LinkCard({ link, index, featured }: LinkCardProps) {
           <div className="flex-shrink-0 w-20 h-16 overflow-hidden border border-border hidden sm:block">
             <img
               src={link.imageUrl}
-              alt=""
+              alt={`${link.title} — preview thumbnail`}
               className="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500"
               loading="lazy"
             />

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { VideoCard } from "@/components/VideoCard";
@@ -30,6 +31,21 @@ const Videos = () => {
   const span = `${years[years.length - 1]}–${years[0]}`;
 
   return (
+    <>
+      <Helmet>
+        <title>Moving Pictures — Justin Strong</title>
+        <meta
+          name="description"
+          content="Short films, music videos, teasers, and reels shot and edited by Justin Strong (Stino)."
+        />
+        <link rel="canonical" href="https://justinstrong.me/videos" />
+        <meta property="og:title" content="Moving Pictures — Justin Strong" />
+        <meta
+          property="og:description"
+          content="Short films, music videos, teasers, and reels shot and edited by Justin Strong (Stino)."
+        />
+        <meta property="og:url" content="https://justinstrong.me/videos" />
+      </Helmet>
     <div className="min-h-screen bg-background paper-texture">
       <main className="mx-auto max-w-[640px] px-4 py-8 sm:py-14">
         <header className="mb-6 paper-enter">
@@ -179,6 +195,7 @@ const Videos = () => {
 
       <VideoLightbox video={playing} onClose={() => setPlaying(null)} />
     </div>
+    </>
   );
 };
 
