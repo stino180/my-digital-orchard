@@ -24,13 +24,17 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Justin Strong — Selected Works &amp; Coordinates</title>
+        <title>Justin Strong — Creative Technologist Portfolio</title>
         <meta
           name="description"
-          content="Justin Strong builds products at the intersection of design, code, and culture — Mozze, zMove, Stacq, DuoChart, films, and contact links."
+          content="Creative technologist portfolio of Justin Strong — products at the intersection of design, code, and culture: Mozze, zMove, Stacq, DuoChart, films, and contact links."
         />
         <link rel="canonical" href="https://justinstrong.me/" />
-        <meta property="og:title" content="Justin Strong — Selected Works &amp; Coordinates" />
+        <meta property="og:title" content="Justin Strong — Creative Technologist Portfolio" />
+        <meta
+          property="og:description"
+          content="Creative technologist portfolio of Justin Strong — products, films, and contact details in one place."
+        />
         <meta property="og:url" content="https://justinstrong.me/" />
       </Helmet>
     <div className="min-h-screen bg-background paper-texture">
