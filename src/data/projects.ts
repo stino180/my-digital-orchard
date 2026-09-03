@@ -98,9 +98,10 @@ export const projects: Project[] = [
   {
     slug: "savenly",
     name: "Savenly",
-    // url: pending — Justin to supply
+    // savenly.deals redirects here; .app is canonical
+    url: "https://savenly.app",
     blurb:
-      "Local deal finder that surfaces the specials restaurants near you are running right now.",
+      "Chicago restaurant deals on a map — happy hours, daily specials, and BOGO offers near you.",
     discipline: "app",
     origin: "in-house",
     status: "live",

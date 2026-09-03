@@ -76,13 +76,13 @@ export const stories: Record<string, Story> = {
   },
 
   savenly: {
-    headline: "The Deals Are Already Nearby. Finding Them Was The Problem",
+    headline: "The Deals Were Always There. Finding Them Was The Problem",
     standfirst:
-      "Restaurant specials, surfaced by where you actually are.",
+      "Chicago happy hours and daily specials, plotted on a map instead of buried on a chalkboard.",
     body: [
       "Restaurants run specials constantly and advertise them almost nowhere — a chalkboard by the door, a story that expires overnight, a page nobody thinks to check before deciding where to eat.",
-      "Savenly collects what is running near you and puts it in front of you at the moment the question comes up.",
-      "It helps both sides of the same street: the diner who would have paid full price, and the kitchen with a quiet Tuesday to fill.",
+      "Savenly puts the whole city on one map. Happy hours, daily specials and BOGO offers across Chicago neighborhoods, filtered by where you are standing when the question comes up.",
+      "The name is save plus heavenly, which tells you it does not take itself too seriously. The problem it solves is real enough: the diner who would have paid full price, and the kitchen with a quiet Tuesday to fill.",
     ],
   },
 };
