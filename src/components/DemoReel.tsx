@@ -3,17 +3,18 @@ import { Play, ArrowUpRight } from "lucide-react";
 import { reels } from "@/data/reels";
 import { dailyRotation } from "@/lib/edition";
 import { CHANNEL_URL } from "@/data/videos";
+import { cn } from "@/lib/utils";
 
 export function DemoReel() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hovered, setHovered] = useState(false);
   const [needsTap, setNeedsTap] = useState(false);
 
-  // One reel leads each day; the other can still be watched on demand.
-  const [leadReel, ...rest] = dailyRotation(reels);
+  // One reel leads each day, but both are selectable — burying a whole reel
+  // behind a day of waiting hides half the work.
+  const [leadReel] = dailyRotation(reels);
   const [activeId, setActiveId] = useState(leadReel.id);
   const featured = reels.find((r) => r.id === activeId) ?? leadReel;
-  const alternate = rest[0];
 
   useEffect(() => {
     const v = videoRef.current;
@@ -44,13 +45,30 @@ export function DemoReel() {
       onMouseLeave={() => setHovered(false)}
     >
       <div className="flex items-center gap-3 mb-2">
-        <span className="font-sans-label text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
-          Demo Reel · {featured.discipline}
+        <span className="font-sans-label text-[10px] tracking-[0.2em] uppercase text-muted-foreground shrink-0">
+          Demo Reels
         </span>
         <span className="h-px flex-1 bg-foreground/15" />
-        <span className="font-mono-label text-muted-foreground">
-          {featured.id === "editing" ? "Vol. I" : "Vol. II"}
-        </span>
+        {/* Both reels named and selectable, so neither is hidden behind a day */}
+        <nav className="flex items-center shrink-0 border border-foreground/20">
+          {reels.map((reel, i) => (
+            <button
+              key={reel.id}
+              type="button"
+              onClick={() => setActiveId(reel.id)}
+              aria-pressed={activeId === reel.id}
+              className={cn(
+                "font-sans-label text-[9px] sm:text-[10px] tracking-[0.14em] uppercase px-2.5 py-1 transition-colors",
+                i > 0 && "border-l border-foreground/20",
+                activeId === reel.id
+                  ? "bg-foreground text-background font-semibold"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/40"
+              )}
+            >
+              {reel.discipline}
+            </button>
+          ))}
+        </nav>
       </div>
 
       <figure className="border-y-[2px] border-foreground">
@@ -84,6 +102,12 @@ export function DemoReel() {
               </span>
             </button>
           )}
+
+          <span className="absolute top-0 left-0 bg-foreground/85 px-2 py-1">
+            <span className="font-mono-label text-background/90">
+              {featured.discipline}
+            </span>
+          </span>
         </div>
 
         <figcaption className="px-1 py-2 flex items-center justify-between gap-3 border-t rule">
@@ -96,32 +120,17 @@ export function DemoReel() {
         </figcaption>
       </figure>
 
-      {alternate && (
-        <p className="mt-2 font-body text-xs text-muted-foreground">
-          Also in this edition:{" "}
-          <button
-            type="button"
-            onClick={() => setActiveId(alternate.id)}
-            disabled={activeId === alternate.id}
-            className={
-              activeId === alternate.id
-                ? "text-muted-foreground/60 cursor-default"
-                : "text-foreground hover:text-accent hover:underline underline-offset-2"
-            }
-          >
-            {alternate.discipline} reel
-          </button>
-          {activeId === alternate.id ? " — now playing." : " — watch it now."}{" "}
-          <a
-            href={CHANNEL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent hover:underline inline-flex items-center gap-0.5"
-          >
-            Full quality on YouTube <ArrowUpRight className="h-3 w-3" />
-          </a>
-        </p>
-      )}
+      <p className="mt-2 font-body text-xs text-muted-foreground">
+        Two reels — editing and cinematography. Pick either above.{" "}
+        <a
+          href={CHANNEL_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent hover:underline inline-flex items-center gap-0.5"
+        >
+          Full quality on YouTube <ArrowUpRight className="h-3 w-3" />
+        </a>
+      </p>
     </section>
   );
 }
