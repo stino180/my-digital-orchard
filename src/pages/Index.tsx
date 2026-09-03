@@ -1,82 +1,64 @@
-import { useState } from "react";
-import { Helmet } from "react-helmet-async";
+import { useMemo } from "react";
 import { ProfileHeader } from "@/components/ProfileHeader";
 import { DemoReel } from "@/components/DemoReel";
-import { FilterPills } from "@/components/FilterPills";
-import { LinkCard } from "@/components/LinkCard";
+import { LeadStory } from "@/components/LeadStory";
+import { SecondaryStory } from "@/components/SecondaryStory";
+import { InsideIndex } from "@/components/InsideIndex";
 import { UtilityRow } from "@/components/UtilityRow";
-import { links, profileData, type LinkCategory } from "@/data/links";
+import { links, profileData } from "@/data/links";
+import { storyFor } from "@/data/stories";
+import { dailyRotation, editionDay } from "@/lib/edition";
+
+/** One lead plus two below it — a front page, not a catalogue. */
+const SECONDARY_COUNT = 2;
 
 const Index = () => {
-  const [activeFilter, setActiveFilter] = useState<"all" | LinkCategory>("all");
+  const { lead, secondaries, rest } = useMemo(() => {
+    // Only projects carrying a slug have story copy to run.
+    const storyable = links.filter((l) => l.slug && storyFor(l.slug));
+    const rotated = dailyRotation(storyable);
 
-  const filteredLinks =
-    activeFilter === "all"
-      ? links
-      : links.filter((l) => l.category === activeFilter);
+    const lead = rotated[0];
+    const secondaries = rotated.slice(1, 1 + SECONDARY_COUNT);
+    const featured = new Set([lead, ...secondaries].filter(Boolean).map((l) => l.id));
 
-  // Rotate featured link daily based on date
-  const linksWithImages = filteredLinks.filter((l) => l.imageUrl);
-  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
-  const featuredLink = linksWithImages.length > 0 ? linksWithImages[dayOfYear % linksWithImages.length] : undefined;
-  const restLinks = filteredLinks.filter((l) => l !== featuredLink);
+    return {
+      lead,
+      secondaries,
+      rest: links.filter((l) => !featured.has(l.id)),
+    };
+  }, []);
+
+  const leadStory = lead?.slug ? storyFor(lead.slug) : undefined;
 
   return (
-    <>
-      <Helmet>
-        <title>Justin Strong — Creative Technologist Portfolio</title>
-        <meta
-          name="description"
-          content="Creative technologist portfolio of Justin Strong — products at the intersection of design, code, and culture: Mozze, zMove, Stacq, DuoChart, films, and contact links."
-        />
-        <link rel="canonical" href="https://justinstrong.me/" />
-        <meta property="og:title" content="Justin Strong — Creative Technologist Portfolio" />
-        <meta
-          property="og:description"
-          content="Creative technologist portfolio of Justin Strong — products, films, and contact details in one place."
-        />
-        <meta property="og:url" content="https://justinstrong.me/" />
-      </Helmet>
     <div className="min-h-screen bg-background paper-texture">
       <main className="mx-auto max-w-[640px] px-4 py-8 sm:py-14">
         <ProfileHeader profile={profileData} />
 
         <DemoReel />
 
-        <FilterPills active={activeFilter} onChange={setActiveFilter} />
+        {lead && leadStory && <LeadStory link={lead} story={leadStory} />}
 
-        <div className="mt-6">
-          {/* Featured / headline article */}
-          {featuredLink && (
-            <LinkCard link={featuredLink} index={0} featured />
-          )}
+        {secondaries.map((link, i) => {
+          const story = link.slug ? storyFor(link.slug) : undefined;
+          return story ? (
+            <SecondaryStory key={link.id} link={link} story={story} index={i} />
+          ) : null;
+        })}
 
-          {/* Below-the-fold articles */}
-          {featuredLink && restLinks.length > 0 && (
-            <div className="border-t rule-heavy mb-1" />
-          )}
-
-          <div className="flex flex-col">
-            {restLinks.map((link, i) => (
-              <LinkCard
-                key={link.id}
-                link={link}
-                index={featuredLink ? i + 1 : i}
-              />
-            ))}
-          </div>
-
-          {filteredLinks.length === 0 && (
-            <p className="py-12 text-center text-sm text-muted-foreground italic font-body">
-              No stories in this section.
-            </p>
-          )}
+        <div className="mt-8">
+          <InsideIndex items={rest} />
         </div>
+
+        <p className="mt-4 font-body italic text-[11px] text-muted-foreground/70">
+          Edition No. {editionDay()} — the front page changes daily; everything
+          else is in the index.
+        </p>
 
         <UtilityRow />
       </main>
     </div>
-    </>
   );
 };
 

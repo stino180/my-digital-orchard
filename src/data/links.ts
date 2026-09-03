@@ -5,9 +5,12 @@ export type LinkStatus = "live" | "wip";
 
 export interface LinkItem {
   id: string;
+  /** Present on project links; ties the entry back to the catalogue. */
+  slug?: string;
   title: string;
   description: string;
-  url: string;
+  /** Absent while a project has no public link yet. */
+  url?: string;
   category: LinkCategory;
   status?: LinkStatus;
   imageUrl?: string;
@@ -37,7 +40,8 @@ const projectArtwork: Record<string, string> = {
  * belong in the Inpoint portfolio, not on a personal site.
  */
 const projectLinks: LinkItem[] = inHouseProjects.map((project) => ({
-  id: `project-${project.slug}`,
+  id: `project-`,
+  slug: project.slug,
   title: project.name,
   description: project.blurb,
   url: project.url,
@@ -97,6 +101,24 @@ const contactLinks: LinkItem[] = [
     category: "socials",
     status: "live",
     icon: "instagram",
+  },
+  {
+    id: "tiktok",
+    title: "TikTok",
+    description: "Short films, clips, and work in progress.",
+    url: "https://www.tiktok.com/@stino180_",
+    category: "socials",
+    status: "live",
+    icon: "tiktok",
+  },
+  {
+    id: "facebook",
+    title: "Facebook",
+    description: "Releases, shows, and everything else worth announcing.",
+    url: "https://www.facebook.com/profile.php?id=100068605364624",
+    category: "socials",
+    status: "live",
+    icon: "facebook",
   },
   {
     id: "email",

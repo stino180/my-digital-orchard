@@ -1,16 +1,18 @@
-import { Twitter, Mail, Instagram } from "lucide-react";
+import { links } from "@/data/links";
+import { iconMap } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
-const quickLinks = [
-  { icon: Twitter, href: "https://x.com/stino180", label: "Twitter" },
-  { icon: Instagram, href: "https://instagram.com/stino180", label: "Instagram" },
-  { icon: Mail, href: "mailto:jstrongmgmt@gmail.com", label: "Email" },
-];
+/**
+ * The directory strip. Reads from links.ts rather than keeping its own list —
+ * it used to hold a second, hand-maintained copy that quietly went out of date.
+ */
+const directory = links.filter(
+  (l) => (l.category === "socials" || l.category === "contact") && l.icon && l.url
+);
 
 export function UtilityRow() {
   return (
-    <footer className="mt-10 paper-enter" style={{ animationDelay: '600ms' }}>
-      {/* Classifieds-style section */}
+    <footer className="mt-10 paper-enter" style={{ animationDelay: "600ms" }}>
       <div className="border-t-[2px] border-foreground" />
       <div className="border-t border-foreground mt-[2px]" />
 
@@ -22,24 +24,33 @@ export function UtilityRow() {
           <span className="h-px flex-1 bg-foreground/15" />
         </div>
 
-        <div className="grid grid-cols-3 gap-px bg-border">
-          {quickLinks.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              target={item.href.startsWith("mailto:") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              aria-label={item.label}
-              className={cn(
-                "flex flex-col items-center gap-1.5 py-4 bg-background",
-                "text-muted-foreground transition-colors duration-200",
-                "hover:text-accent hover:bg-secondary/30"
-              )}
-            >
-              <item.icon className="h-4 w-4" />
-              <span className="font-sans-label text-[10px] tracking-[0.12em] uppercase">{item.label}</span>
-            </a>
-          ))}
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-px bg-border">
+          {directory.map((item) => {
+            const Icon = iconMap[item.icon as string];
+            if (!Icon) return null;
+            const isHandler =
+              item.url!.startsWith("mailto:") || item.url!.startsWith("tel:");
+
+            return (
+              <a
+                key={item.id}
+                href={item.url}
+                target={isHandler ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                aria-label={item.title}
+                className={cn(
+                  "flex flex-col items-center gap-1.5 py-4 bg-background",
+                  "text-muted-foreground transition-colors duration-200",
+                  "hover:text-accent hover:bg-secondary/30"
+                )}
+              >
+                <Icon className="h-4 w-4" />
+                <span className="font-sans-label text-[10px] tracking-[0.12em] uppercase">
+                  {item.title}
+                </span>
+              </a>
+            );
+          })}
         </div>
       </div>
 

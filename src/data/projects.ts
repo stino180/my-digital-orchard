@@ -27,7 +27,8 @@ export interface Project {
   /** Stable identifier. Used to attach per-site artwork; don't rename casually. */
   slug: string;
   name: string;
-  url: string;
+  /** Omit while a project has no public link yet; cards render unlinked. */
+  url?: string;
   /** One line, no site-specific framing. Reads correctly on either site. */
   blurb: string;
   discipline: ProjectDiscipline;
@@ -92,6 +93,16 @@ export const projects: Project[] = [
     blurb: "CDL training platform with live classes, practice tests, and study guides.",
     discipline: "website",
     origin: "client",
+    status: "live",
+  },
+  {
+    slug: "savenly",
+    name: "Savenly",
+    // url: pending — Justin to supply
+    blurb:
+      "Local deal finder that surfaces the specials restaurants near you are running right now.",
+    discipline: "app",
+    origin: "in-house",
     status: "live",
   },
 ];
